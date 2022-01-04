@@ -1,5 +1,6 @@
 ﻿global using System.Diagnostics.CodeAnalysis;
 
+global using EFSoft.Products.Api.Configuration;
 global using EFSoft.Products.Application.Commands.Parameters;
 global using EFSoft.Products.Application.Queries.Parameters;
 global using EFSoft.Products.Application.Queries.Results;

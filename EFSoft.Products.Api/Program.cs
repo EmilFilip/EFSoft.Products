@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Products Microservice", Version = "v1" });
 });
+builder.Services.RegisterLocalServices(builder.Configuration);
 
 var app = builder.Build();
 
