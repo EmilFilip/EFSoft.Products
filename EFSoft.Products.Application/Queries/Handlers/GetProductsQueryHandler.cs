@@ -15,8 +15,8 @@ public class GetProductsQueryHandler :
             CancellationToken cancellationToken = default)
     {
         var products = await _productRepository.GetProductsAsync(
-            parameters.ProductIds,
-            cancellationToken);
+            productIds: parameters.ProductIds,
+            cancellationToken: cancellationToken);
 
         return new GetProductsQueryResult(products);
     }

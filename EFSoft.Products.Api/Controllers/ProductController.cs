@@ -25,8 +25,7 @@
         public async Task<IActionResult> Get(Guid productId)
         {
             var results = await _queryExecutor.ExecuteAsync<GetProductQueryParameters, GetProductQueryResult>(
-             new GetProductQueryParameters(
-                 productId: productId));
+             new GetProductQueryParameters(productId));
 
             if (results == null)
             {

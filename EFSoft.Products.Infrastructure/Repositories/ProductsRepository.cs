@@ -1,6 +1,4 @@
-﻿
-
-namespace EFSoft.Products.Infrastructure.Repositories;
+﻿namespace EFSoft.Products.Infrastructure.Repositories;
 
 public class ProductsRepository : IProductsRepository
 {
@@ -37,7 +35,9 @@ public class ProductsRepository : IProductsRepository
         }
     }
 
-    public async Task<IEnumerable<ProductModel>> GetProductsAsync(IEnumerable<Guid> productIds, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ProductModel>> GetProductsAsync(
+        IEnumerable<Guid> productIds, 
+        CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
