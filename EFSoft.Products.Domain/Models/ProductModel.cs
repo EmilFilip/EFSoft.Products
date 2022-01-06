@@ -22,12 +22,6 @@ public class ProductModel
             inStock: inStock);
     }
 
-    public void Update(
-        string description)
-    {
-        Description = description;
-    }
-
     public Guid ProductId { get; }
 
     public string Description { get; set; }

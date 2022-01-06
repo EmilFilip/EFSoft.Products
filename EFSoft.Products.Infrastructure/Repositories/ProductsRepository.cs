@@ -4,12 +4,16 @@ public class ProductsRepository : IProductsRepository
 {
     private readonly ProductsDbContext _productsDbContext;
 
+    public ProductsRepository(ProductsDbContext productsDbContext)
+    {
+        _productsDbContext = productsDbContext;
+    }
+
     public async Task CreateProductAsync(
         ProductModel product, 
         CancellationToken cancellationToken = default)
     {
         var entity = MapToEntity(product);
-        entity.UpdatedAt = DateTime.Now;
 
         _productsDbContext.Products.Add(entity);
 
@@ -28,7 +32,7 @@ public class ProductsRepository : IProductsRepository
         if (entity != null)
         {
             entity.Deleted = true;
-            entity.DeletedAt = DateTime.Now;
+            entity.DeletedAt = DateTime.UtcNow;
 
             _productsDbContext.Update(entity);
             await _productsDbContext.SaveChangesAsync(cancellationToken);
@@ -68,8 +72,9 @@ public class ProductsRepository : IProductsRepository
 
         if (entity != null)
         {
-            entity.UpdatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.UtcNow;
             entity.Description = product.Description;
+            entity.InStock = product.InStock;
 
             _productsDbContext.Update(entity);
             await _productsDbContext.SaveChangesAsync(cancellationToken);
@@ -92,7 +97,8 @@ public class ProductsRepository : IProductsRepository
         {
             ProductId = domainCustomer.ProductId,
             Description = domainCustomer.Description,
-            InStock = domainCustomer.InStock
+            InStock = domainCustomer.InStock,
+            UpdatedAt = DateTime.UtcNow
         };
     }
 }

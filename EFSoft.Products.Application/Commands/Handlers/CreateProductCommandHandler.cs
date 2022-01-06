@@ -12,7 +12,9 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommandP
     public async Task HandleAsync(
         CreateProductCommandParameters command)
     {
-        var productModel = ProductModel.CreateNew(command.Description, command.InStock);
+        var productModel = ProductModel.CreateNew(
+            description: command.Description,
+            inStock: command.InStock);
 
         await _productRepository.CreateProductAsync(productModel);
     }

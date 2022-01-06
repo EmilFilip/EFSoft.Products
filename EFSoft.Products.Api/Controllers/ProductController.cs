@@ -1,75 +1,74 @@
-﻿namespace EFSoft.Products.Api.Controllers
+﻿namespace EFSoft.Products.Api.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProductController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    private readonly ICommandExecutor _commandExecutor;
+    private readonly IQueryExecutor _queryExecutor;
+
+    public ProductController(
+            ICommandExecutor commandExecutor,
+            IQueryExecutor queryExecutor)
     {
-        private readonly ICommandExecutor _commandExecutor;
-        private readonly IQueryExecutor _queryExecutor;
+        _commandExecutor = commandExecutor
+            ?? throw new ArgumentNullException(nameof(commandExecutor));
+        _queryExecutor = queryExecutor
+            ?? throw new ArgumentNullException(nameof(queryExecutor));
 
-        public ProductController(
-                ICommandExecutor commandExecutor,
-                IQueryExecutor queryExecutor)
+    }
+
+    [HttpGet]
+    [Route("{productId:guid}")]
+    [ProducesResponseType(typeof(GetProductQueryResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get(Guid productId)
+    {
+        var results = await _queryExecutor.ExecuteAsync<GetProductQueryParameters, GetProductQueryResult>(
+         new GetProductQueryParameters(productId));
+
+        if (results == null)
         {
-            _commandExecutor = commandExecutor
-                ?? throw new ArgumentNullException(nameof(commandExecutor));
-            _queryExecutor = queryExecutor
-                ?? throw new ArgumentNullException(nameof(queryExecutor));
-
+            return NotFound();
         }
 
-        [HttpGet]
-        [Route("{productId:guid}")]
-        [ProducesResponseType(typeof(GetProductQueryResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(Guid productId)
-        {
-            var results = await _queryExecutor.ExecuteAsync<GetProductQueryParameters, GetProductQueryResult>(
-             new GetProductQueryParameters(productId));
+        return Ok(results);
+    }
 
-            if (results == null)
-            {
-                return NotFound();
-            }
+    [HttpGet]
+    [ProducesResponseType(typeof(List<GetProductQueryResult>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get()
+    {
+        return Ok("Products microservice is working fine");
+    }
 
-            return Ok(results);
-        }
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Post([FromBody] CreateProductCommandParameters parameters)
+    {
+        await _commandExecutor.ExecuteAsync(parameters);
 
-        [HttpGet]
-        [ProducesResponseType(typeof(List<GetProductQueryResult>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get()
-        {
-            return Ok("Products microservice is working fine");
-        }
+        return Ok();
+    }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post([FromBody] CreateProductCommandParameters parameters)
-        {
-            await _commandExecutor.ExecuteAsync(parameters);
+    [HttpPut()]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Put([FromBody] UpdateProductCommandParameters parameters)
+    {
+        await _commandExecutor.ExecuteAsync(parameters);
 
-            return Ok();
-        }
+        return Ok();
+    }
 
-        [HttpPut()]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Put([FromBody] UpdateProductCommandParameters parameters)
-        {
-            await _commandExecutor.ExecuteAsync(parameters);
+    [HttpDelete()]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Delete([FromBody] DeleteProductCommandParameters parameters)
+    {
+        await _commandExecutor.ExecuteAsync(parameters);
 
-            return Ok();
-        }
-
-        [HttpDelete()]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Delete([FromBody] DeleteProductCommandParameters parameters)
-        {
-            await _commandExecutor.ExecuteAsync(parameters);
-
-            return Ok();
-        }
+        return Ok();
     }
 }
