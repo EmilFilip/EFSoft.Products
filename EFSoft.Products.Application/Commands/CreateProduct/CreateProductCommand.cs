@@ -1,8 +1,8 @@
-﻿namespace EFSoft.Products.Application.Commands.Parameters;
+﻿namespace EFSoft.Products.Application.Commands.CreateProduct;
 
-public class CreateProductCommandParameters : ICommand
+public class CreateProductCommand : ICommand
 {
-    public CreateProductCommandParameters(
+    public CreateProductCommand(
          string description,
          bool inStock)
     {

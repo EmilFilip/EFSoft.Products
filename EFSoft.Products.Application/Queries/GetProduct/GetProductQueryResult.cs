@@ -1,6 +1,6 @@
-﻿namespace EFSoft.Products.Application.Queries.Results;
+﻿namespace EFSoft.Products.Application.Queries.GetProduct;
 
-public class GetProductQueryResult : IQueryResult
+public class GetProductQueryResult
 {
     public GetProductQueryResult(
         string description,
@@ -11,5 +11,5 @@ public class GetProductQueryResult : IQueryResult
     }
 
     public string Description { get; }
-    public bool InStock{ get; }
+    public bool InStock { get; }
 }

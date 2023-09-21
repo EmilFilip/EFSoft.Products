@@ -1,0 +1,51 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: svc-efsoft-services-productsapi
+  labels:
+    version: dev
+    product: efsoft-services-productsapi
+spec:
+  selector:
+    app: efsoft-services-productsapi
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-efsoft-services-productsapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: efsoft-services-productsapi
+  template:
+    metadata:
+      labels:
+        app: efsoft-services-productsapi
+    spec:
+      containers:
+      - name: efsoft-services-productsapi
+        image: efsoftcr.azurecr.io/efsoft_products:v5
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Production
+        - name: ASPNETCORE_URLS
+          value: http://+:80
+        - name: ConnectionStrings__ProductsConnectionString
+          valueFrom: 
+            secretKeyRef:
+              name: products-db
+              key: ProductsConnectionString
+        ports:
+        - containerPort: 80
+        - containerPort: 443

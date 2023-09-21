@@ -1,6 +1,6 @@
-﻿namespace EFSoft.Products.Application.Commands.Handlers;
+﻿namespace EFSoft.Products.Application.Commands.DeleteProduct;
 
-public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommandParameters>
+public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand>
 {
     private readonly IProductsRepository _productRepository;
 
@@ -9,7 +9,9 @@ public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommandP
         _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
     }
 
-    public async Task HandleAsync(DeleteProductCommandParameters command)
+    public async Task Handle(
+        DeleteProductCommand command,
+        CancellationToken cancellationToken)
     {
         await _productRepository.DeleteProductAsync(command.ProductId);
     }

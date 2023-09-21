@@ -1,6 +1,6 @@
-﻿namespace EFSoft.Products.Application.Commands.Handlers;
+﻿namespace EFSoft.Products.Application.Commands.UpdateProduct;
 
-public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommandParameters>
+public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
 {
     private readonly IProductsRepository _productRepository;
 
@@ -9,7 +9,9 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommandP
         _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
     }
 
-    public async Task HandleAsync(UpdateProductCommandParameters command)
+    public async Task Handle(
+        UpdateProductCommand command,
+        CancellationToken cancellationToken)
     {
         var productModel = new ProductModel(
             productId: command.ProductId,

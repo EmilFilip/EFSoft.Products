@@ -4,25 +4,33 @@ if (!builder.Environment.IsDevelopment())
 {
     var appConfigurationConnectionString = builder.Configuration.GetValue<string>("AppConfigurationConnectionString");
 
-    builder.Configuration.AddAzureAppConfiguration(config =>
+    builder.Configuration.AddAzureAppConfiguration(options =>
     {
-        config.Connect(appConfigurationConnectionString);
+        options.Connect(appConfigurationConnectionString)
+                .ConfigureRefresh(refresh =>
+                {
+                    refresh.Register("Settings:Sentinel", refreshAll: true).SetCacheExpiration(new TimeSpan(0, 1, 0));
+                });
     });
 }
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
+builder.Configuration.AddEnvironmentVariables();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Product Microservice", Version = "v1" });
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Products Microservice", Version = "v1" });
 });
 
 builder.Services.RegisterLocalServices(builder.Configuration);
+builder.Services.RegisterCqrs(typeof(GetProductQuery).Assembly);
 
 var app = builder.Build();
+
+app.MapProductEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -30,14 +38,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer Microservice V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Products Microservice V1");
     });
+}
+if (!app.Environment.IsDevelopment())
+{
+    app.UseAzureAppConfiguration();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();

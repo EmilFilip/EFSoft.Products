@@ -1,6 +1,6 @@
-﻿namespace EFSoft.Products.Application.Queries.Results;
+﻿namespace EFSoft.Products.Application.Queries.GetProducts;
 
-public class GetProductsQueryResult : IQueryResult
+public class GetProductsQueryResult
 {
     public GetProductsQueryResult(IEnumerable<ProductModel> products)
     {

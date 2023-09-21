@@ -1,6 +1,6 @@
-﻿namespace EFSoft.Products.Application.Commands.Handlers;
+﻿namespace EFSoft.Products.Application.Commands.CreateProduct;
 
-public class CreateProductCommandHandler : ICommandHandler<CreateProductCommandParameters>
+public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
 {
     private readonly IProductsRepository _productRepository;
 
@@ -9,8 +9,9 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommandP
         _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
     }
 
-    public async Task HandleAsync(
-        CreateProductCommandParameters command)
+    public async Task Handle(
+        CreateProductCommand command,
+        CancellationToken cancellationToken)
     {
         var productModel = ProductModel.CreateNew(
             description: command.Description,

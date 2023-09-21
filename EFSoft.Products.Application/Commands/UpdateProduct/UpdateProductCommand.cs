@@ -1,8 +1,8 @@
-﻿namespace EFSoft.Products.Application.Commands.Parameters;
+﻿namespace EFSoft.Products.Application.Commands.UpdateProduct;
 
-public class UpdateProductCommandParameters : ICommand
+public class UpdateProductCommand : ICommand
 {
-    public UpdateProductCommandParameters(
+    public UpdateProductCommand(
          Guid productId,
          string description,
          bool inStock)

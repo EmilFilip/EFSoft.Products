@@ -1,17 +1,16 @@
-﻿namespace EFSoft.Products.Application.Queries.Handlers;
+﻿namespace EFSoft.Products.Application.Queries.GetProduct;
 
-public class GetProductQueryHandler :
-        IQueryHandler<GetProductQueryParameters, GetProductQueryResult>
+public class GetProductQueryHandler : IQueryHandler<GetProductQuery, GetProductQueryResult>
 {
     private readonly IProductsRepository _productRepository;
 
     public GetProductQueryHandler(IProductsRepository productRepository)
     {
-        _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+        _productRepository = productRepository;
     }
 
-    public async Task<GetProductQueryResult> HandleAsync(
-            GetProductQueryParameters parameters,
+    public async Task<GetProductQueryResult> Handle(
+            GetProductQuery parameters,
             CancellationToken cancellationToken = default)
     {
         var product = await _productRepository.GetProductAsync(

@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSoft.Products.Api", "EFSoft.Products.Api\EFSoft.Products.Api.csproj", "{33A2800C-024C-47F8-813F-CF404FFB07F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFSoft.Products.Api", "EFSoft.Products.Api\EFSoft.Products.Api.csproj", "{33A2800C-024C-47F8-813F-CF404FFB07F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSoft.Products.Application", "EFSoft.Products.Application\EFSoft.Products.Application.csproj", "{53F5A626-EBEC-4F1F-90BB-8A7EB222C3DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFSoft.Products.Application", "EFSoft.Products.Application\EFSoft.Products.Application.csproj", "{53F5A626-EBEC-4F1F-90BB-8A7EB222C3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSoft.Products.Domain", "EFSoft.Products.Domain\EFSoft.Products.Domain.csproj", "{D4BE4454-79A0-4163-92F0-DDE428D99F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFSoft.Products.Domain", "EFSoft.Products.Domain\EFSoft.Products.Domain.csproj", "{D4BE4454-79A0-4163-92F0-DDE428D99F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSoft.Products.Infrastructure", "EFSoft.Products.Infrastructure\EFSoft.Products.Infrastructure.csproj", "{4AB92A6C-A296-4111-B5B9-C1DFE12FD8B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFSoft.Products.Infrastructure", "EFSoft.Products.Infrastructure\EFSoft.Products.Infrastructure.csproj", "{4AB92A6C-A296-4111-B5B9-C1DFE12FD8B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7803B608-83EB-454C-9D9B-86817D4EED81}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,18 +4,11 @@
 [ApiController]
 public class ProductController : ControllerBase
 {
-    private readonly ICommandExecutor _commandExecutor;
-    private readonly IQueryExecutor _queryExecutor;
+    private readonly IMediator _mediator;
 
-    public ProductController(
-            ICommandExecutor commandExecutor,
-            IQueryExecutor queryExecutor)
+    public ProductController(IMediator mediator)
     {
-        _commandExecutor = commandExecutor
-            ?? throw new ArgumentNullException(nameof(commandExecutor));
-        _queryExecutor = queryExecutor
-            ?? throw new ArgumentNullException(nameof(queryExecutor));
-
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -24,8 +17,7 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(Guid productId)
     {
-        var results = await _queryExecutor.ExecuteAsync<GetProductQueryParameters, GetProductQueryResult>(
-         new GetProductQueryParameters(productId));
+        var results = await _mediator.Send(new GetProductQuery(productId));
 
         if (results == null)
         {
@@ -46,9 +38,9 @@ public class ProductController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Post([FromBody] CreateProductCommandParameters parameters)
+    public async Task<IActionResult> Post([FromBody] CreateProductCommand parameters)
     {
-        await _commandExecutor.ExecuteAsync(parameters);
+        await _mediator.Send(parameters);
 
         return Ok();
     }
@@ -56,18 +48,18 @@ public class ProductController : ControllerBase
     [HttpPut()]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Put([FromBody] UpdateProductCommandParameters parameters)
+    public async Task<IActionResult> Put([FromBody] UpdateProductCommand parameters)
     {
-        await _commandExecutor.ExecuteAsync(parameters);
+        await _mediator.Send(parameters);
 
         return Ok();
     }
 
     [HttpDelete()]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete([FromBody] DeleteProductCommandParameters parameters)
+    public async Task<IActionResult> Delete(Guid productId)
     {
-        await _commandExecutor.ExecuteAsync(parameters);
+        await _mediator.Send(new GetProductQuery(productId));
 
         return Ok();
     }
