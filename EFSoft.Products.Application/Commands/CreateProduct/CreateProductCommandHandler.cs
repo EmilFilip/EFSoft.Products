@@ -6,7 +6,7 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
 
     public CreateProductCommandHandler(IProductsRepository productRepository)
     {
-        _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+        _productRepository = productRepository;
     }
 
     public async Task Handle(

@@ -6,7 +6,7 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
 
     public UpdateProductCommandHandler(IProductsRepository productRepository)
     {
-        _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+        _productRepository = productRepository;
     }
 
     public async Task Handle(

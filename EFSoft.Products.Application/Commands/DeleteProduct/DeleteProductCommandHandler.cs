@@ -6,7 +6,7 @@ public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand>
 
     public DeleteProductCommandHandler(IProductsRepository productRepository)
     {
-        _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+        _productRepository = productRepository;
     }
 
     public async Task Handle(
