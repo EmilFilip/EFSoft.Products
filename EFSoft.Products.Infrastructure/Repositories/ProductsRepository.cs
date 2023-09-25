@@ -43,16 +43,24 @@ public class ProductsRepository : IProductsRepository
         IEnumerable<Guid> productIds, 
         CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var entities = await _productsDbContext.Products
+            .AsQueryable()
+            .Where(c => productIds.Contains(c.ProductId) && c.Deleted == false)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+
+        return entities.Select(x => MapToDomain(x));
     }
 
     public async Task<ProductModel> GetProductAsync(
         Guid productId, 
         CancellationToken cancellationToken = default)
     {
-        var entity = await _productsDbContext.Products.FirstOrDefaultAsync(
-            p => p.ProductId == productId && p.Deleted == false,
-            cancellationToken: cancellationToken);
+        var entity = await _productsDbContext.Products
+            .AsQueryable()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.ProductId == productId && p.Deleted == false,
+                                cancellationToken: cancellationToken);
 
         if (entity == null)
         {

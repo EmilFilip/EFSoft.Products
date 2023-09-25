@@ -8,6 +8,7 @@ public static class ServicesInstaller
                     IConfiguration configuration)
     {
         return services
+             .RegisterCqrs(typeof(GetProductQuery).Assembly)
              .AddDbContext<ProductsDbContext>(
                 options =>
                 {

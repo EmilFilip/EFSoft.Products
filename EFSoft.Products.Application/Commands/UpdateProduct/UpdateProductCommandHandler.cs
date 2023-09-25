@@ -18,6 +18,8 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
             description: command.Description,
             inStock: command.InStock);
 
-        await _productRepository.UpdateProductAsync(productModel);
+        await _productRepository.UpdateProductAsync(
+            productModel,
+            cancellationToken);
     }
 }

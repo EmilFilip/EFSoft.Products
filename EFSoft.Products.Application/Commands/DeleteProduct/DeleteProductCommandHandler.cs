@@ -13,6 +13,8 @@ public class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand>
         DeleteProductCommand command,
         CancellationToken cancellationToken)
     {
-        await _productRepository.DeleteProductAsync(command.ProductId);
+        await _productRepository.DeleteProductAsync(
+            command.ProductId,
+            cancellationToken);
     }
 }

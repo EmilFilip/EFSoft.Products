@@ -26,7 +26,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.RegisterLocalServices(builder.Configuration);
-builder.Services.RegisterCqrs(typeof(GetProductQuery).Assembly);
 
 var app = builder.Build();
 

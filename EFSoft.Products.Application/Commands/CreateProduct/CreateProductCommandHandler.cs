@@ -17,6 +17,8 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
             description: command.Description,
             inStock: command.InStock);
 
-        await _productRepository.CreateProductAsync(productModel);
+        await _productRepository.CreateProductAsync(
+            productModel,
+            cancellationToken);
     }
 }
