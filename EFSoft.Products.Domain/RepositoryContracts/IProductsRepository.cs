@@ -1,4 +1,6 @@
-﻿namespace EFSoft.Products.Application.RepositoryContracts;
+﻿using EFSoft.Products.Domain.Models;
+
+namespace EFSoft.Products.Domain.RepositoryContracts;
 
 public interface IProductsRepository
 {
