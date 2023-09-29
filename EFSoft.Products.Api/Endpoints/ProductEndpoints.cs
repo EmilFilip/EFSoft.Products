@@ -7,7 +7,7 @@ public static class ProductEndpoints
         var group = endpoint.MapGroup("api/product");
 
         group.MapGet("{productId:guid}", Get);
-        group.MapGet("{productIds}", GetProducts);
+        group.MapGet("", GetProducts);
         group.MapPost("", Post);
         group.MapPut("", Put);
         group.MapDelete("{productId:guid}", Delete);
@@ -30,7 +30,7 @@ public static class ProductEndpoints
         return TypedResults.Ok(results);
     }
 
-    public static async Task<Results<Ok<IEnumerable<ProductModel>>, NotFound>> GetProducts(
+    public static async Task<Results<Ok<GetProductsQueryResult>, NotFound>> GetProducts(
         Guid[] productIds,
         IMediator mediator,
         CancellationToken cancellationToken)
@@ -44,7 +44,7 @@ public static class ProductEndpoints
             return TypedResults.NotFound();
         }
 
-        return TypedResults.Ok(results.Products);
+        return TypedResults.Ok(results);
     }
 
     public static async Task<IResult> Post(
@@ -72,12 +72,12 @@ public static class ProductEndpoints
     }
 
     public static async Task<IResult> Delete(
-        Guid customerId,
+        Guid productId,
         IMediator mediator,
         CancellationToken cancellationToken)
     {
         await mediator.Send(
-            new DeleteProductCommand(customerId),
+            new DeleteProductCommand(productId),
             cancellationToken);
 
         return Results.Ok();

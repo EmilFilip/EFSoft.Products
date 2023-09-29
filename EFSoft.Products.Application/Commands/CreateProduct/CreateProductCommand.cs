@@ -1,7 +1,5 @@
 ﻿namespace EFSoft.Products.Application.Commands.CreateProduct;
 
-public sealed record class CreateProductCommand(
+public sealed record CreateProductCommand(
          string Description,
-         bool InStock) : ICommand
-{
-}
+         bool InStock) : ICommand;

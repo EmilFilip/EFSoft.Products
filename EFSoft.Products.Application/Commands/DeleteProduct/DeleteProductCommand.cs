@@ -1,5 +1,3 @@
 ﻿namespace EFSoft.Products.Application.Commands.DeleteProduct;
 
-public sealed record class DeleteProductCommand(Guid ProductId) : ICommand
-{
-}
+public sealed record DeleteProductCommand(Guid ProductId) : ICommand;

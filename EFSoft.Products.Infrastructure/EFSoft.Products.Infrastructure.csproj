@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFSoft.Products.Application\EFSoft.Products.Application.csproj" />
-    <ProjectReference Include="..\EFSoft.Products.Domain\EFSoft.Products.Domain.csproj" />
   </ItemGroup>
 
 </Project>
