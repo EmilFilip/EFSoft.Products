@@ -361,4 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/EFSoft.Products.Api/appsettings.Production.json
+#/EFSoft.Products.Api/appsettings.Production.json
