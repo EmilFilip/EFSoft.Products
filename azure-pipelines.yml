@@ -27,6 +27,6 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/EFSoft.Products.Api/Dockerfile'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
