@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
-COPY ["NuGet.Config", "."]
+COPY ["NuGet.Config", ""]
 COPY ["EFSoft.Products.Api/EFSoft.Products.Api.csproj", "EFSoft.Products.Api/"]
 COPY ["EFSoft.Products.Application/EFSoft.Products.Application.csproj", "EFSoft.Products.Application/"]
 COPY ["EFSoft.Products.Domain/EFSoft.Products.Domain.csproj", "EFSoft.Products.Domain/"]
@@ -18,6 +18,9 @@ ARG PAT=localhost
 RUN sed -i "s|</configuration>|<packageSourceCredentials><EFSoft-Feed><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></EFSoft-Feed></packageSourceCredentials></configuration>|" NuGet.Config
 
 RUN dotnet restore "EFSoft.Products.Api/EFSoft.Products.Api.csproj" --configfile "./NuGet.Config"
+RUN dotnet restore "EFSoft.Products.Application/EFSoft.Products.Application.csproj" --configfile "./NuGet.Config"
+RUN dotnet restore "EFSoft.Products.Domain/EFSoft.Products.Domain.csproj" --configfile "./NuGet.Config"
+RUN dotnet restore "EFSoft.Products.Infrastructure/EFSoft.Products.Infrastructure.csproj" --configfile "./NuGet.Config"
 COPY . .
 WORKDIR "/src/EFSoft.Products.Api"
 RUN dotnet build "EFSoft.Products.Api.csproj" -c Release -o /app/build
