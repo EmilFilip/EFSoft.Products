@@ -10,9 +10,9 @@ WORKDIR /src
 
 COPY ["NuGet.Config", "."]
 COPY ["EFSoft.Products.Api/EFSoft.Products.Api.csproj", "EFSoft.Products.Api/"]
-COPY ["EFSoft.Products.Api/EFSoft.Products.Application.csproj", "EFSoft.Products.Application/"]
-COPY ["EFSoft.Products.Api/EFSoft.Products.Domain.csproj", "EFSoft.Products.Domain/"]
-COPY ["EFSoft.Products.Api/EFSoft.Products.Infrastructure.csproj", "EFSoft.Products.Infrastructure/"]
+COPY ["EFSoft.Products.Application/EFSoft.Products.Application.csproj", "EFSoft.Products.Application/"]
+COPY ["EFSoft.Products.Domain/EFSoft.Products.Domain.csproj", "EFSoft.Products.Domain/"]
+COPY ["EFSoft.Products.Infrastructure/EFSoft.Products.Infrastructure.csproj", "EFSoft.Products.Infrastructure/"]
 
 ARG PAT=localhost
 RUN sed -i "s|</configuration>|<packageSourceCredentials><EFSoft-Feed><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></EFSoft-Feed></packageSourceCredentials></configuration>|" NuGet.Config
