@@ -8,12 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
-RUN curl -L https://raw.githubusercontent.com/Microsoft/artifacts-credprovider/master/helpers/installcredprovider.sh  | sh
-
 COPY ["EFSoft.Products.Api/EFSoft.Products.Api.csproj", "EFSoft.Products.Api/"]
 COPY ["NuGet.Config", "."]
 
-ENV VSS_NUGET_EXTERNAL_FEED_ENDPOINTS="{\"endpointCredentials\": [{\"endpoint\":\"https://pkgs.dev.azure.com/emilfilip3/_packaging/emilfilip3/nuget/v3/index.json\", \"username\":\"docker\", \"password\":\b461ee19-0e11-4e29-a84b-881602ea8e3e}]}"
+ARG PAT=localhost
+RUN sed -i "s|</configuration>|<packageSourceCredentials><EFSoft-Feed><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></EFSoft-Feed></packageSourceCredentials></configuration>|" nuget.config
 
 RUN dotnet restore "EFSoft.Products.Api/EFSoft.Products.Api.csproj"
 COPY . .
