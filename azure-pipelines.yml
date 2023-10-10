@@ -23,13 +23,9 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: Docker@1      
-      inputs:
-        containerregistrytype: 'Azure Container Registry'
-        command: 'Build an image'
-        dockerFile: '**/Dockerfile'
-        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(EFSoftFeedPAT)'
-        imageName: '$(ImageName)'
-        useDefaultContext: false
-        buildContext: 'ProductsApi'
+    - task: Docker@1
       displayName: 'Build the Docker image'
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=b461ee19-0e11-4e29-a84b-881602ea8e3e'
