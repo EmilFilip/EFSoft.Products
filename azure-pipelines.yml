@@ -28,6 +28,6 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=b461ee19-0e11-4e29-a84b-881602ea8e3e'
+        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(EFSoftPAT)'
         tags: |
           $(tag)
