@@ -39,4 +39,3 @@ stages:
         containerRegistry: 'efsoft'
         repository: 'efsoft-products:v1'
         command: 'push'
-        tags: 'v1'
