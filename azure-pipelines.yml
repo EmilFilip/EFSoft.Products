@@ -27,7 +27,7 @@ stages:
       displayName: 'Build Docker image'
       inputs:
         command: 'Build an image'
-        imageName: 'efsoft-products:$(Build.BuildId)'
+        imageName: 'efsoft-products'
         dockerfile: '**/Dockerfile'
         arguments: '--build-arg NUGET_PASSWORD=$(PAT)'
     - task: Docker@2
