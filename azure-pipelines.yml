@@ -26,6 +26,6 @@ stages:
     - task: Docker@1
       displayName: 'Build the Docker image'
       inputs:
-        command: build
+        command: 'build'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PAT)'
