@@ -8,19 +8,21 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
-COPY ["NuGet.Config", ""]
+RUN curl -L https://raw.githubusercontent.com/Microsoft/artifacts-credprovider/master/helpers/installcredprovider.sh  | sh
+
 COPY ["EFSoft.Products.Api/EFSoft.Products.Api.csproj", "EFSoft.Products.Api/"]
 COPY ["EFSoft.Products.Application/EFSoft.Products.Application.csproj", "EFSoft.Products.Application/"]
 COPY ["EFSoft.Products.Domain/EFSoft.Products.Domain.csproj", "EFSoft.Products.Domain/"]
 COPY ["EFSoft.Products.Infrastructure/EFSoft.Products.Infrastructure.csproj", "EFSoft.Products.Infrastructure/"]
+COPY ["NuGet.Config", ""]
 
-ARG PAT=localhost
-RUN sed -i "s|</configuration>|<packageSourceCredentials><EFSoft-Feed><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></EFSoft-Feed></packageSourceCredentials></configuration>|" NuGet.Config
+ARG PAT
+#RUN sed -i "s|</configuration>|<packageSourceCredentials><emilfilip3><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></emilfilip3></packageSourceCredentials></configuration>|" NuGet.Config
+
+ENV VSS_NUGET_EXTERNAL_FEED_ENDPOINTS="{\"endpointCredentials\": [{\"endpoint\":\"https://pkgs.dev.azure.com/emilfilip3/_packaging/emilfilip3/nuget/v3/index.json\", \"username\":\"emilfilip3\", \"password\":\"PAT\"}]}"
 
 RUN dotnet restore "EFSoft.Products.Api/EFSoft.Products.Api.csproj"
-RUN dotnet restore "EFSoft.Products.Application/EFSoft.Products.Application.csproj"
-RUN dotnet restore "EFSoft.Products.Domain/EFSoft.Products.Domain.csproj"
-RUN dotnet restore "EFSoft.Products.Infrastructure/EFSoft.Products.Infrastructure.csproj"
+
 COPY . .
 WORKDIR "/src/EFSoft.Products.Api"
 RUN dotnet build "EFSoft.Products.Api.csproj" -c Release -o /app/build
