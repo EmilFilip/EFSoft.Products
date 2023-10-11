@@ -28,4 +28,4 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(EFSoftFeedPAT)'
+        arguments: '--build-arg BuildId=$(Build.BuildId) --build-arg PAT=$(PAT)'
