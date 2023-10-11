@@ -37,6 +37,6 @@ stages:
       displayName: 'Push Docker image'
       inputs:
         containerRegistry: 'efsoft'
-        repository: 'efsoft-products:v1'
+        repository: 'efsoft-products'
         command: 'push'
         tags: 'v1'
