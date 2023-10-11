@@ -23,13 +23,15 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: Docker@1
+    - task: Docker@2
       displayName: 'Build Docker image'
       inputs:
-        command: 'Build an image'
-        imageName: 'efsoft-products'
+        containerRegistry: 'efsoft'
+        command: 'build'
+        repository: 'efsoft-products'
         dockerfile: '**/Dockerfile'
         arguments: '--build-arg NUGET_PASSWORD=$(PAT)'
+        tags: $(Build.BuildId)
     - task: Docker@2
       displayName: 'Push Docker image'
       inputs:
