@@ -32,11 +32,11 @@ stages:
         dockerfile: '**/Dockerfile'
         arguments: '--build-arg NUGET_PASSWORD=$(PAT)'
         imageName: 'efsoft-products'
-        tags: 'v:$(Build.BuildId)'
+        tags: 'v$(Build.BuildId)'
     - task: Docker@2
       displayName: 'Push Docker image'
       inputs:
         containerRegistry: 'efsoft'
         repository: 'efsoft-products'
         command: 'push'
-        tags: 'v:$(Build.BuildId)'
+        tags: 'v$(Build.BuildId)'
