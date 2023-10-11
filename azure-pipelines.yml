@@ -37,3 +37,4 @@ stages:
         containerRegistry: 'efsoft'
         repository: 'efsoft-products'
         command: 'push'
+        tags: 'efsoft-products'
