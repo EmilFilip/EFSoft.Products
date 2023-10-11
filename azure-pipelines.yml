@@ -28,4 +28,4 @@ stages:
       inputs:
         command: 'build'
         dockerfile: '**/Dockerfile'
-        arguments: NUGET_PASSWORD=$(PAT)
+        arguments: '--build-arg NUGET_PASSWORD=$(PAT)'
