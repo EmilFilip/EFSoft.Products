@@ -23,6 +23,15 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: AzureCLI@2
+      displayName: Delete Existing container if exists
+      inputs:
+        azureSubscription: 'EFSoft-Subscription(7530e887-c945-44bc-b0bf-fdd3416284f5)'
+        scriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: az container delete -g efsoft-rg -n efsoft-products --yes
+        powerShellErrorActionPreference: 'silentlyContinue'
+        
     - task: Docker@2
       displayName: 'Build Docker image'
       inputs:
