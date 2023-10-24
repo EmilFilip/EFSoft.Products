@@ -28,7 +28,7 @@ stages:
       inputs:
         containerRegistry: 'efsoft'
         command: 'build'
-        repository: 'efsoft_products'
+        repository: 'efsoft-products'
         dockerfile: '**/Dockerfile'
         arguments: '--build-arg NUGET_PASSWORD=$(PAT)'
         tags: latest
