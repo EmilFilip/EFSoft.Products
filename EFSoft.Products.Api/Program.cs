@@ -1,5 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var appConfigurationConnectionString = builder.Configuration.GetValue<string>("AppConfigurationConnectionString");
 //if (!builder.Environment.IsDevelopment())
 //{
 //    var appConfigurationConnectionString = builder.Configuration.GetValue<string>("AppConfigurationConnectionString");
@@ -13,6 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 //                });
 //    });
 //}
+
+builder.Configuration.AddAzureAppConfiguration(options =>
+{
+    options.Connect(appConfigurationConnectionString)
+            .ConfigureRefresh(refresh =>
+            {
+                refresh.Register("Settings:Sentinel", refreshAll: true)
+                        .SetCacheExpiration(new TimeSpan(0, 1, 0));
+            });
+});
 
 // Add services to the container.
 builder.Services.AddAuthorization();
@@ -30,7 +41,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-//app.MapProductEndpoints();
+app.MapProductEndpoints();
 app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
