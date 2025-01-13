@@ -1,10 +1,6 @@
 ﻿namespace EFSoft.Products.Infrastructure.DBContexts;
 
-public class ProductsDbContext : DbContext
+public class ProductsDbContext(DbContextOptions options) : DbContext(options)
 {
-    public ProductsDbContext(DbContextOptions options) : base(options)
-    {
-    }
-
     public DbSet<Product> Products { get; set; }
 }

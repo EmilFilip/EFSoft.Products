@@ -1,20 +1,22 @@
 ﻿global using System.Diagnostics.CodeAnalysis;
-
+global using Carter;
 global using EFSoft.Products.Api.Configuration;
-global using EFSoft.Products.Api.Endpoints;
-global using EFSoft.Products.Application.Commands.CreateProduct;
-global using EFSoft.Products.Application.Commands.DeleteProduct;
-global using EFSoft.Products.Application.Commands.UpdateProduct;
-global using EFSoft.Products.Application.Queries.GetProduct;
-global using EFSoft.Products.Application.Queries.GetProducts;
-global using EFSoft.Products.Domain.Models;
+global using EFSoft.Products.Api.CreateProduct;
+global using EFSoft.Products.Api.DeleteProduct;
+global using EFSoft.Products.Api.GetProduct;
+global using EFSoft.Products.Api.GetProducts;
+global using EFSoft.Products.Api.UpdateProduct;
+global using EFSoft.Products.Application.CreateProduct;
+global using EFSoft.Products.Application.DeleteProduct;
+global using EFSoft.Products.Application.GetProduct;
+global using EFSoft.Products.Application.GetProducts;
+global using EFSoft.Products.Application.UpdateProduct;
 global using EFSoft.Products.Domain.RepositoryContracts;
 global using EFSoft.Products.Infrastructure.DBContexts;
 global using EFSoft.Products.Infrastructure.Repositories;
 global using EFSoft.Shared.Cqrs.Configuration;
-
+global using FluentValidation;
 global using MediatR;
-
 global using Microsoft.AspNetCore.Http.HttpResults;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
