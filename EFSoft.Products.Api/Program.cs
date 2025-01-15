@@ -15,14 +15,10 @@ if (!builder.Environment.IsDevelopment())
 }
 
 builder.Services.AddCarter();
-// Add services to the container.
-builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Configuration.AddEnvironmentVariables();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductRequestValidator>();
 builder.Services.AddHealthChecks();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Products Microservice", Version = "v1" });
@@ -35,7 +31,6 @@ app.MapCarter();
 
 app.MapHealthChecks("/health");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     _ = app.UseSwagger();
@@ -46,7 +41,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.Run();
