@@ -19,6 +19,7 @@ public class GetProductQueryHandler(IGetProductRepository getProductRepository)
 
 
         return new GetProductQueryResult(
+            ProductId: product.ProductId,
             Description: product.Description,
             InStock: product.InStock);
     }
